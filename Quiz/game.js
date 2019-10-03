@@ -1,5 +1,5 @@
 if(jQuery){
-	var checkAnswers = function(){
+  var checkAnswers = function(){
     var answerString = "";
     var answers = $(":checked");
     answers.each(function(i) {
@@ -10,7 +10,6 @@ if(jQuery){
     });
     checkIfCorrect(answerString);
   };
-
   var checkIfCorrect = function(theString){
     if(parseInt(theString, 16) === 811124566973){
       $("body").addClass("correct");
@@ -35,7 +34,7 @@ if(me){
 if(require){
   $("#question6").show();
 };
-if(playground){
+if($().playground){
   $("#question7").show();
 };
 if(jaws){

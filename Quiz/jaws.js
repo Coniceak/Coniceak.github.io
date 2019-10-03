@@ -117,7 +117,7 @@ jaws.init = function(options) {
     document.body.appendChild(jaws.canvas)
   }
 
-
+  
   jaws.width = jaws.canvas ? jaws.canvas.width : jaws.dom.offsetWidth
   jaws.height = jaws.canvas ? jaws.canvas.height  : jaws.dom.offsetHeight
 
@@ -133,7 +133,7 @@ jaws.init = function(options) {
 function saveMousePosition(e) {
   jaws.mouse_x = (e.pageX || e.clientX)
   jaws.mouse_y = (e.pageY || e.clientX)
-
+  
   var game_area = jaws.canvas ? jaws.canvas : jaws.dom
   jaws.mouse_x -= game_area.offsetLeft
   jaws.mouse_y -= game_area.offsetTop
@@ -167,7 +167,7 @@ jaws.start = function(game_state, options,game_state_setup_options) {
   var fps = options.fps || 60
   if (options.loading_screen === undefined)
     options.loading_screen = true
-
+  
   if(!options.width) options.width = 500; 
   if(!options.height) options.height = 300;
   jaws.init(options)
@@ -237,11 +237,11 @@ jaws.start = function(game_state, options,game_state_setup_options) {
 */
 jaws.switchGameState = function(game_state, options,game_state_setup_options) {
   var fps = (options && options.fps) || (jaws.game_loop && jaws.game_loop.fps) || 60
-
+  
   jaws.game_loop && jaws.game_loop.stop()
   jaws.clearKeyCallbacks() // clear out all keyboard callbacks
   if(jaws.isFunction(game_state)) { game_state = new game_state }
-
+  
   jaws.previous_game_state = jaws.game_state
   jaws.game_state = game_state
   jaws.game_loop = new jaws.GameLoop(game_state, {fps: fps},game_state_setup_options)
@@ -361,13 +361,13 @@ var jaws = (function(jaws) {
   var on_keyup_callbacks = []
   var mousebuttoncode_to_string = []
   var ie_mousebuttoncode_to_string = []
-
+ 
 /** @private
  * Map all javascript keycodes to easy-to-remember letters/words
  */
 jaws.setupInput = function() {
   var k = []
-
+  
   k[8] = "backspace"
   k[9] = "tab"
   k[13] = "enter"
@@ -388,7 +388,7 @@ jaws.setupInput = function() {
   k[40] = "down" 
   k[45] = "insert"
   k[46] = "delete"
-
+  
   k[91] = "leftwindowkey"
   k[92] = "rightwindowkey"
   k[93] = "selectkey"
@@ -397,7 +397,7 @@ jaws.setupInput = function() {
   k[109] = "subtract"
   k[110] = "decimalpoint"
   k[111] = "divide"
-
+  
   k[144] = "numlock"
   k[145] = "scrollock"
   k[186] = "semicolon"
@@ -411,9 +411,9 @@ jaws.setupInput = function() {
   k[220] = "backslash"
   k[221] = "closebracket"
   k[222] = "singlequote"
-
+  
   var m = []
-
+  
   m[0] = "left_mouse_button"
   m[1] = "center_mouse_button"
   m[2] = "right_mouse_button"
@@ -422,7 +422,7 @@ jaws.setupInput = function() {
   ie_m[1] = "left_mouse_button";
   ie_m[2] = "right_mouse_button";
   ie_m[4] = "center_mouse_button"; 
-
+  
   mousebuttoncode_to_string = m
   ie_mousebuttoncode_to_string = ie_m;
 
@@ -435,7 +435,7 @@ jaws.setupInput = function() {
   for(var i = 0; letters[i]; i++)     { k[65+i] = letters[i] }
   for(var i = 0; numpadkeys[i]; i++)  { k[96+i] = numpadkeys[i] }
   for(var i = 0; fkeys[i]; i++)       { k[112+i] = fkeys[i] }
-
+  
   keycode_to_string = k
 
   window.addEventListener("keydown", handleKeyDown)
@@ -896,7 +896,7 @@ jaws.GameLoop = function GameLoop(game_object, options,game_state_setup_options)
   this.tick_duration = 0
   this.fps = 0
   this.ticks = 0
-
+  
   var update_id
   var paused = false
   var stopped = false
@@ -914,14 +914,14 @@ jaws.GameLoop = function GameLoop(game_object, options,game_state_setup_options)
   /** Start the game loop by calling setup() once and then loop update()/draw() forever with given FPS */
   this.start = function() {
     jaws.log("game loop start", true)
-
+  
     this.first_tick = (new Date()).getTime();
     this.current_tick = (new Date()).getTime();
     this.last_tick = (new Date()).getTime(); 
 
     if(game_object.setup) { game_object.setup(game_state_setup_options) }
     step_delay = 1000 / options.fps;
-
+   
     if(options.fps == 60) {
       requestAnimFrame(this.loop)
     }
@@ -931,7 +931,7 @@ jaws.GameLoop = function GameLoop(game_object, options,game_state_setup_options)
 
     jaws.log("game loop loop", true)
   }
-
+  
   /** The core of the game loop. Calculate a mean FPS and call update()/draw() if game loop is not paused */
   this.loop = function() {
     that.current_tick = (new Date()).getTime();
@@ -946,10 +946,10 @@ jaws.GameLoop = function GameLoop(game_object, options,game_state_setup_options)
     if(options.fps == 60 && !stopped) requestAnimFrame(that.loop);
     that.last_tick = that.current_tick;
   }
-
+  
   /** Pause the game loop. loop() will still get called but not update() / draw() */
   this.pause = function()   { paused = true }
-
+  
   /** unpause the game loop */
   this.unpause = function() { paused = false }
 
@@ -965,7 +965,7 @@ function MeanValue(size) {
   this.size = size
   this.values = new Array(this.size)
   this.value
-
+  
   this.add = function(value) {
     if(this.values.length > this.size) {  // is values filled?
       this.values.splice(0,1)
@@ -976,7 +976,7 @@ function MeanValue(size) {
       this.value = this.value / this.size
     }
     this.values.push(value)
-
+    
     return this
   }
 
@@ -1005,7 +1005,7 @@ var jaws = (function(jaws) {
 */
 jaws.Rect = function Rect(x, y, width, height) {
   if( !(this instanceof arguments.callee) ) return new arguments.callee(x, y, width, height);
-
+  
   this.x = x
   this.y = y
   this.width = width
@@ -1115,7 +1115,7 @@ jaws.Sprite = function Sprite(options) {
 
   this.options = options
   this.set(options)  
-
+  
   if(options.context) { 
     this.context = options.context
   }
@@ -1289,7 +1289,7 @@ jaws.Sprite.prototype.anchor = function(value) {
 /** @private */
 jaws.Sprite.prototype.cacheOffsets = function() {
   if(!this.image) { return }
-
+  
   this.width = this.image.width * this.scale_x
   this.height = this.image.height * this.scale_y
   this.left_offset   = this.width * this.anchor_x
@@ -1487,7 +1487,7 @@ jaws.SpriteList = function SpriteList(options) {
 
   this.sprites = []
   this.length = 0
-
+  
   if(options) this.load(options);
 }
 
@@ -1728,7 +1728,7 @@ jaws.SpriteList.prototype.load = function(objects) {
   }
   else if(jaws.isString(objects)) { parseArray( JSON.parse(objects) ); console.log(objects) }
   this.updateLength()
-
+  
   function parseArray(array) {
     array.forEach( function(data) {
       var constructor = data._constructor ? eval(data._constructor) : data.constructor
@@ -1816,10 +1816,10 @@ function cutImage(image, x, y, width, height) {
   var cut = document.createElement("canvas")
   cut.width = width
   cut.height = height
-
+  
   var ctx = cut.getContext("2d")
   ctx.drawImage(image, x, y, width, height, 0, 0, cut.width, cut.height)
-
+  
   return cut
 };
 
@@ -1842,7 +1842,7 @@ jaws.SpriteSheet = function SpriteSheet(options) {
   this.frame_size = options.frame_size || [32,32]
   this.frames = []
   this.offset = options.offset || 0
-
+  
   if(options.scale_image) {
     var image = (jaws.isDrawable(options.image) ? options.image : jaws.assets.get(options.image))
     this.frame_size[0] *= options.scale_image
@@ -1898,8 +1898,6 @@ var jaws = (function(jaws) {
 jaws.Parallax = function Parallax(options) {
   if( !(this instanceof arguments.callee) ) return new arguments.callee( options );
 
-
-
   this.scale = options.scale || 1
   this.repeat_x = options.repeat_x
   this.repeat_y = options.repeat_y
@@ -1920,7 +1918,7 @@ jaws.Parallax.prototype.draw = function(options) {
 		} else {
 			initx = -(this.camera_x / layer.damping) 
 		}		
-
+        
 		if (this.repeat_y) {
 			layer.y = -((this.camera_y / layer.damping) % layer.height);
 		} else {
@@ -2166,7 +2164,7 @@ jaws.Viewport = function ViewPort(options) {
     y && (this.y += y)
     this.verifyPosition()
   };
-
+  
   /** Move viewport to given x/y */
   this.moveTo = function(x, y) {
     if(!(x==undefined)) { this.x = x }
@@ -2200,10 +2198,10 @@ jaws.Viewport = function ViewPort(options) {
     var rect = item.rect()
     return( rect.right >= that.x && rect.x <= (that.x + that.width) && rect.bottom >= that.y && item.y <= (that.y + that.height) )
   };
-
+  
   /** Returns true of item is left of viewport */
   this.isLeftOf = function(item) { return(item.x < that.x)  }
-
+ 
   /** Returns true of item is right of viewport */
   this.isRightOf = function(item) { return(item.x > (that.x + that.width) )  }
 
@@ -2239,7 +2237,7 @@ jaws.Viewport = function ViewPort(options) {
     if(item.y < this.y+buffer)               { item.y = this.y+buffer }
     if(item.y > this.y+jaws.height-buffer)   { item.y = this.y+jaws.height-buffer }
   }
-
+  
   /**
    * force 'item' inside the limits of the viewport
    * using 'buffer' as indicator how close to the 'item' is allowed to go
@@ -2310,7 +2308,7 @@ jaws.Viewport = function ViewPort(options) {
     if(this.y < 0)      { this.y = 0 }
     if(this.y > max)    { this.y = max }
   };
-
+ 
   this.moveTo(options.x||0, options.y||0)
 }
 
@@ -2419,7 +2417,7 @@ jaws.TileMap.prototype.pushAsRect = function(obj, rect) {
   for(var col = from_col; col <= to_col; col++) {
     var from_row = parseInt(rect.y / this.cell_size[1])
     var to_row = parseInt((rect.bottom-1) / this.cell_size[1])
-
+    
     //jaws.log("rect.bottom " + rect.bottom + " from/to row: " + from_row + " " + to_row, true)
     for(var row = from_row; row <= to_row; row++) {
       // console.log("pushAtRect() col/row: " + col + "/" + row + " - " + this.cells[col][row])
@@ -2576,7 +2574,7 @@ jaws.collideManyWithMany = function(list1, list2) {
 
   return a;
 }
-
+  
 
 /** 
  * Returns true if circles collide.
@@ -2649,6 +2647,7 @@ jaws.collide = function(object1, object2) {
   if(object1.rect && object2.rect && object1 !== object2 && jaws.collideRects( object1.rect(), object2.rect())) { return [object1, object2]; }
   if(object1.forEach) a = object1.map( function(item1) { return jaws.collide(item1, object2) } ).filter(hasItems);
   if(object2.forEach) a = object2.map( function(item2) { return jaws.collide(item2, object1) } ).filter(hasItems);
+
   // Convert [[[1,2],[2,2]]] -> [[1,1],[2,2]] (flatten one outer array wrapper)
   if(a[0] && a[0].length == 1)  return a[0];
   else                          return a;
@@ -2693,7 +2692,7 @@ var jaws = (function(jaws) {
         var x2 = Math.floor(x / factor)
         var y_dst = (y_as_x + x) * 4
         var y_src = (y2_as_x + x2) * 4
-
+        
         to_data.data[y_dst] = data[y_src];
         to_data.data[y_dst+1] = data[y_src+1];
         to_data.data[y_dst+2] = data[y_src+2];

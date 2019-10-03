@@ -998,7 +998,7 @@ enchant.EventTarget = enchant.Class.create({
          *
          * @example
          *   game.preload('player.gif');
- *   game.onload = function() {
+         *   game.onload = function() {
          *      var sprite = new Sprite(32, 32);
          *      sprite.image = game.assets['player.gif']; // Access via path
          *      ...
@@ -1998,7 +1998,7 @@ enchant.Label = enchant.Class.create(enchant.Entity, {
      */
     text: {
         get: function() {
- return this._element.innerHTML;
+            return this._element.innerHTML;
         },
         set: function(text) {
             this._element.innerHTML = text;
@@ -2998,7 +2998,7 @@ enchant.Group = enchant.Class.create(enchant.Node, {
     var DetectColorManager = enchant.Class.create({
         initialize: function(reso, max) {
             this.reference = [];
-  this.detectColorNum = 0;
+            this.detectColorNum = 0;
             this.colorResolution = reso || 16;
             this.max = max || 1;
         },

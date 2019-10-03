@@ -148,7 +148,7 @@
                 if (comps && and) for (i = 0; i < l; i++) this.extend(components[comps[i]]);
 
                 this.length = elem; //length is the last index (already incremented)
-
+				
 				// if there's only one entity, return the actual entity
 				if (elem === 1) {
 					return entities[this[elem-1]];
@@ -294,7 +294,7 @@
             var i = 0, l, comps;
             if (arguments.length > 1) {
                 l = arguments.length;
-
+                        
                 for (; i < l; i++) {
                     if(this.has(arguments[i])){ 
                         this.removeComponent(arguments[i]);
@@ -313,7 +313,7 @@
                         this.addComponent(comps[i]);
                     }
                 }
-
+                
             //single component passed
             } else {
                 if(this.has(toggle)){ 
@@ -698,7 +698,7 @@
         },
 
         /**@
- * #.destroy
+        * #.destroy
         * @comp Crafty Core
         * @sign public this .destroy(void)
         * Will remove all event listeners and delete all properties as well as removing from the stage
@@ -941,7 +941,7 @@
                 }else{
                     this.frame++;
                 }
-
+            
             },
             /**@
             * #Crafty.timer.getFPS
@@ -1499,7 +1499,7 @@ function(Crafty, window, document) {
 					hash = i + SPACE + j;
 
 					if (this.map[hash]) {
-	var cell = this.map[hash],
+						var cell = this.map[hash],
 						m,
 						n = cell.length;
 						//loop over objs in cell and delete
@@ -1947,7 +1947,7 @@ Crafty.c("2D", {
 				}
 				this._children = [];
 			}
-
+			
 			if (this._parent) {
 				this._parent.detach(this);
 			}
@@ -2497,7 +2497,7 @@ Crafty.c("Gravity", {
 		pos.h = pos._h;
 
 		q = Crafty.map.search(pos);
-l = q.length;
+		l = q.length;
 
 		for (; i < l; ++i) {
 			obj = q[i];
@@ -2998,7 +2998,7 @@ Crafty.c("Collision", {
 			}
 
 			//exit early if positive
-if (interval >= 0) {
+			if (interval >= 0) {
 				return false;
 			}
 
@@ -3715,6 +3715,7 @@ Crafty.c("HTML", {
 	 * 
 	 * Loads a piece of data from the database.
 	 * Entities will be reconstructed from the serialized string
+
 	 * @example
 	 * Loads an entity from the database
 	 * ~~~
@@ -3729,6 +3730,7 @@ Crafty.c("HTML", {
 	 * @sign .getAllKeys(String type)
 	 * @param type - 'save' or 'cache'
 	 * Gets all the keys for a given type
+
 	 * @example
 	 * Gets all the save games saved
 	 * ~~~
@@ -3920,7 +3922,7 @@ Crafty.storage = (function () {
 	if (typeof indexedDB != 'object') {
 		window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
 		window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction;
-
+		
 		/* Numeric constants for transaction type are deprecated
 		 * Ensure that the script will work consistenly for recent and legacy browser versions
 		 */
@@ -4517,7 +4519,7 @@ Crafty.extend({
     * @param event - Event name to bind to
     * @param callback - Method to execute when triggered
     * 
-* Adds DOM level 3 events to elements. The arguments it accepts are the call
+    * Adds DOM level 3 events to elements. The arguments it accepts are the call
     * context (the value of `this`), the DOM element to attach the event to,
     * the event name (without `on` (`click` rather than `onclick`)) and
     * finally the callback method.
@@ -4646,7 +4648,7 @@ Crafty.extend({
         * simply add `Crafty.viewport.y` onto the entities `y` position.
         */
         _y: 0,
-
+		
 		/**@
          * #Crafty.viewport.bounds
          * @comp Crafty.viewport
@@ -5146,7 +5148,7 @@ Crafty.extend({
             elem.overflow = "hidden";
 
             if (Crafty.mobile) {
-   elem.position = "absolute";
+                elem.position = "absolute";
                 elem.left = "0px";
                 elem.top = "0px";
 
@@ -5237,7 +5239,7 @@ Crafty.extend({
             Crafty.stage.x = offset.x;
             Crafty.stage.y = offset.y;
         },
-
+		
 		/**@
 		 * #Crafty.viewport.reset
 		 * @comp Crafty.stage
@@ -5865,7 +5867,7 @@ Crafty.c("Canvas", {
 
 			context.rotate((this._rotation % 360) * (Math.PI / 180));
 		}
-
+		
 		if(this._flipX || this._flipY) {
 			context.save();
 			context.scale((this._flipX ? -1 : 1), (this._flipY ? -1 : 1));
@@ -5876,7 +5878,7 @@ Crafty.c("Canvas", {
 				pos._y = -(pos._y + pos._h)
 			}
 		}
-
+		
 		//draw with alpha
 		if (this._alpha < 1.0) {
 			var globalpha = context.globalAlpha;
@@ -5995,9 +5997,9 @@ Crafty.extend({
 	},
 
 	mouseDispatch: function (e) {
-
+		
 		if (!Crafty.mouseObjs) return;
-Crafty.lastEvent = e;
+		Crafty.lastEvent = e;
 
 		var maxz = -1,
 			closest,
@@ -6124,7 +6126,7 @@ Crafty.lastEvent = e;
         else if (e.type === "touchend") type = "mouseup";
         else if (e.type === "touchcancel") type = "mouseup";
         else if (e.type === "touchleave") type = "mouseup";
-
+        
         if(e.touches && e.touches.length) {
             first = e.touches[0];
         } else if(e.changedTouches && e.changedTouches.length) {
@@ -6369,7 +6371,7 @@ Crafty.c("Draggable", {
 	//Note: the code is note tested with zoom, etc., that may distort the direction between the viewport and the coordinate on the canvas.
 	init: function () {
 		this.requires("Mouse");
-
+		
 		this._ondrag = function (e) {
 			var pos = Crafty.DOM.translate(e.clientX, e.clientY);
 
@@ -6377,7 +6379,7 @@ Crafty.c("Draggable", {
 			if (pos.x == 0 || pos.y == 0) {
 			    return false;
 			}
-
+	    
 			if(this._dir) {
 			    var len = (pos.x - this._origMouseDOMPos.x) * this._dir.x + (pos.y - this._origMouseDOMPos.y) * this._dir.y;
 			    this.x = this._oldX + len * this._dir.x;
@@ -6386,7 +6388,7 @@ Crafty.c("Draggable", {
 			    this.x = this._oldX + (pos.x - this._origMouseDOMPos.x);
 			    this.y = this._oldY + (pos.y - this._origMouseDOMPos.y);
 			}
-
+	    
 			this.trigger("Dragging", e);
 		};
 
@@ -6448,8 +6450,8 @@ Crafty.c("Draggable", {
       };
 		}
 	},
-
-
+	
+	
 	/**@
 	* #._startDrag
 	* @comp Draggable
@@ -6467,7 +6469,7 @@ Crafty.c("Draggable", {
 		Crafty.addEvent(this, Crafty.stage.elem, "mouseup", this._onup);
 		this.trigger("StartDrag", e);
 	},
-
+	
 	/**@
 	* #.stopDrag
 	* @comp Draggable
@@ -6996,7 +6998,7 @@ Crafty.c("SpriteAnimation", {
 
 			pos = this._frame.currentReel[0];
 			this.__coord[0] = pos[0];
-this.__coord[1] = pos[1];
+			this.__coord[1] = pos[1];
 
 			this.bind("EnterFrame", this.updateSprite);
 			return this;
@@ -7069,7 +7071,7 @@ this.__coord[1] = pos[1];
 
 
 		if (data.currentSlideNumber === data.currentReel.length) {
-
+			
 			if (this._frame.repeatInfinitly === true || this._frame.repeat > 0) {
 				if (this._frame.repeat) this._frame.repeat--;
 				this._frame.frameNumberBetweenSlides = 0;
@@ -7342,9 +7344,9 @@ Crafty.c("Image", {
 				if (!this.ready || !this._pattern) return;
 
 				var context = e.ctx;
-
+				
 				context.fillStyle = this._pattern;
-
+				
 				context.save();
 				context.translate(e.pos._x, e.pos._y);
 				context.fillRect(0, 0, this._w, this._h);
@@ -7997,7 +7999,7 @@ Crafty.extend({
             var start = this.px2pos(-center.left+Crafty.viewport.width/2,-center.top+Crafty.viewport.height/2);
             var end = this.px2pos(-center.left-Crafty.viewport.width/2,-center.top-Crafty.viewport.height/2);
             return {
- x:{
+                x:{
                     start : start.x,
                     end : end.x
                 },
@@ -8551,6 +8553,7 @@ Crafty.extend({
 		 *
 		 * Will play a sound previously added by using the ID that was used in `Crafty.audio.add`.
 		 * Has a default maximum of 5 channels so that the same sound can play simultaneously unless all of the channels are playing.
+
 		 * *Note that the implementation of HTML5 Audio is buggy at best.*
 		 *
 		 * @example
@@ -8995,7 +8998,7 @@ Crafty.extend({
 	* Preloader for all assets. Takes an array of URLs and
 	* adds them to the `Crafty.assets` object.
 	*
-* Files with suffixes in `image_whitelist` (case insensitive) will be loaded.
+	* Files with suffixes in `image_whitelist` (case insensitive) will be loaded.
 	*
 	* If `Crafty.support.audio` is `true`, files with the following suffixes `mp3`, `wav`, `ogg` and `mp4` (case insensitive) can be loaded.
 	*
@@ -9033,18 +9036,18 @@ Crafty.extend({
         * @see Crafty.image_whitelist
 	*/
     load: function (data, oncomplete, onprogress, onerror) {
-
+            
         var i = 0, l = data.length, current, obj, total = l, j = 0, ext = "" ;
-
+  
         //Progress function
         function pro(){
             var src = this.src;
-
+           
             //Remove events cause audio trigger this event more than once(depends on browser)
             if (this.removeEventListener) {  
                 this.removeEventListener('canplaythrough', pro, false);     
             }
-
+           
             ++j;
             //if progress callback, give information of assets loaded, total and percent
             if (onprogress) 
@@ -9054,7 +9057,7 @@ Crafty.extend({
                     percent: (j / total * 100),
                     src:src
                 });
-
+				
             if(j === total && oncomplete) oncomplete();
         };
         //Error function
@@ -9067,17 +9070,17 @@ Crafty.extend({
                     percent: (j / total * 100),
                     src:src
                 });
-
+           		
             j++;
             if(j === total && oncomplete) oncomplete();
         };
-
+           
         for (; i < l; ++i) {       
             current = data[i];
             ext = current.substr(current.lastIndexOf('.') + 1, 3).toLowerCase();
-
+           
             obj = Crafty.asset(current) || null;   
-
+          
             if (Crafty.support.audio && Crafty.audio.supported[ext]) {   
                 //Create new object if not exists
                 if(!obj){
@@ -9093,13 +9096,13 @@ Crafty.extend({
                         played:0
                     } 
                 }
-
+        
                 //addEventListener is supported on IE9 , Audio as well
                 if (obj.addEventListener) {  
                     obj.addEventListener('canplaythrough', pro, false);     
                 }
-
-
+                   
+                 
             } else if (Crafty.image_whitelist.indexOf(ext) >= 0) { 
                 if(!obj) {
                     obj = new Image();
@@ -9107,15 +9110,15 @@ Crafty.extend({
                 }
                 obj.onload=pro;
                 obj.src = current; //setup src after onload function Opera/IE Bug
-
+             
             } else {
                 total--;
                 continue; //skip if not applicable
             }
             obj.onerror = err;
         }
-
-
+       
+       
     },
 	/**@
 	* #Crafty.modules
@@ -9995,7 +9998,7 @@ Crafty.math.Matrix2D = (function () {
 	/**@
 	 * #.apply
      * @comp Crafty.math.Matrix2D
- *
+	 *
 	 * Applies the matrix transformations to the passed object
 	 *
 	 * @public
