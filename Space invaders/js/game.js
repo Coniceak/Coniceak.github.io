@@ -9,8 +9,6 @@
 
 var game = {
 
-
-	
     // Run on page load.
     "onload" : function () {
         // Initialize the video.
